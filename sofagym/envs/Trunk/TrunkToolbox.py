@@ -197,6 +197,7 @@ def _getGoalPos(rootNode):
     -------
         The position of the goal.
     """
+    
     return rootNode.Goal.GoalMO.position[0]
 
 
@@ -230,6 +231,7 @@ def getState(rootNode):
     goalPos = _getGoalPos(rootNode).tolist()
 
     state = points + goalPos
+    
 
     return state
 
@@ -293,6 +295,7 @@ def displace(cable, displacement):
 
     """
     cable.cable.value = [cable.cable.value[0] + displacement]
+    print("displace")
 
 
 def startCmd_Trunk(rootNode, cable, displacement, duration):
@@ -313,6 +316,8 @@ def startCmd_Trunk(rootNode, cable, displacement, duration):
     -------
         None.
     """
+    print("duration")
+    print(duration)
 
     # Definition of the elements of the animation
     def executeAnimation(cable, displacement, factor):

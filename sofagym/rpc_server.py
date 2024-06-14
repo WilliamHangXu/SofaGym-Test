@@ -484,9 +484,7 @@ def clean_registry(history):
                                 pass
 
     for id in id_closed:
-        # while instances[id]["pendingTasks"].__len__()!=0:
-        #     pass
-        actions_to_stateId.pop(str(instances[id]['history']))
+        # while instances[id]["pendingTasks"].__len__()!=0:             
         instances.pop(id)
 
 
@@ -506,6 +504,7 @@ def start_scene(config, nb_actions):
             The first observation.
 
     """
+    
     global stateId, actions_to_stateId, instances, firstObservation, results, port_rpc
 
     close_scene()
@@ -608,7 +607,7 @@ def get_result(result_id, timeout=None):
                        }
             results[result_id] = res
             return res
-
+             
     return instances[result_id]["pendingResults"].get(timeout=timeout)
 
 

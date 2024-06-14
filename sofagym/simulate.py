@@ -39,9 +39,18 @@ def init_simulation(config, _startCmd=None, mode="simu_and_visu"):
 
     try:
         create_scene = importlib.import_module("sofagym.envs."+scene+"." + scene + "Scene").createScene
-    except:
-        print("sofagym.envs."+scene+"." + scene + "Scene")
-        raise NotImplementedError("Importing your SOFA Scene Failed")
+    # except:
+    #     print("sofagym.envs."+scene+"." + scene + "Scene")
+    #     raise NotImplementedError("Importing your SOFA Scene Failed")
+    except ModuleNotFoundError as e:
+        print(f"ModuleNotFoundError: {e}")
+    except ImportError as e:
+        print(f"ImportError: {e}")
+    except AttributeError as e:
+        print(f"AttributeError: {e}")
+    except Exception as e:
+        # Catch any other exceptions that may occur
+        print(f"An unexpected error occurred: {e}")
 
     # Load the scene
     root = Sofa.Core.Node("root")
@@ -106,6 +115,7 @@ def step_simulation(root, config, action, _startCmd, _getPos, viewer=None):
             The positions of object(s) in the scene.
 
     """
+    # print("step simulation")
     goal = config['goalPos']
     render = config['render']
     surface_size = config['display_size']
@@ -116,7 +126,8 @@ def step_simulation(root, config, action, _startCmd, _getPos, viewer=None):
     _startCmd(root, action, config["dt"]*(config["scale_factor"]-1))
     pos = []
     # Realise scale_factor simulation steps of 0.01 s
-    for i in range(config["scale_factor"]):
+    for i in range(1):
+        
         Sofa.Simulation.animate(root, config["dt"])
         if render == 2:
             pos.append(_getPos(root))

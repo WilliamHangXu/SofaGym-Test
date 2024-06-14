@@ -13,6 +13,7 @@ from sofagym.envs.Trunk.TrunkEnv import *
 from sofagym.envs.TrunkCup.TrunkCupEnv import *
 from sofagym.envs.CartPole.CartPoleEnv import *
 from sofagym.envs.CatheterBeam.CatheterBeamEnv import *
+from sofagym.envs.Finger.FingerEnv import *
 
 
 # registering sofagym envs as gymnasium envs
@@ -76,4 +77,8 @@ register(
 register(
     id='catheter_beam-v0',
     entry_point='sofagym.envs:CatheterBeamEnv',
+)
+register(
+    id='finger-v0',
+    entry_point='sofagym.envs:FingerEnv',
 )

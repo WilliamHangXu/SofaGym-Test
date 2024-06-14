@@ -152,6 +152,9 @@ def make_result(state_id, obs, reward, done):
 
 
 if __name__ == "__main__":
+    print("run client")
+    
+    
     if len(sys.argv) != 4:
         print("SYNTAX: python3.7 client.py config nb_actions port_rpc")
         sys.exit(-1)
@@ -165,17 +168,21 @@ if __name__ == "__main__":
     # Register the first instance to the manager
     s = xmlrpc.client.ServerProxy('http://localhost:' + port_rpc)
     s.registerInstance(0, os.getpid(), [])
+    
 
     _getState = importlib.import_module("sofagym.envs."+scene+"."+scene+"Toolbox").getState
     _getReward = importlib.import_module("sofagym.envs."+scene+"."+scene+"Toolbox").getReward
     _startCmd = importlib.import_module("sofagym.envs."+scene+"."+scene+"Toolbox").startCmd
     _getPos = importlib.import_module("sofagym.envs."+scene+"."+scene+"Toolbox").getPos
+    
 
     root = init_simulation(config, _startCmd, mode='simu')
+    
 
     s.registerFirstObservation(make_result(stateId, _getState(root), 0.0, False))
 
     command = None
+    
 
     while command != "exit":
         task = s.getNextTask(stateId)

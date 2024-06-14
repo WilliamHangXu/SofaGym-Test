@@ -305,6 +305,7 @@ class AbstractEnv(gym.Env):
 
         # Pass the actions to the server to launch the simulation.
         result_id = add_new_step(self.past_actions, action)
+        # print(f"{result_id = }")
         self.past_actions.append(action)
 
         # Request results from the server.
@@ -376,16 +377,17 @@ class AbstractEnv(gym.Env):
             obs, info
 
         """
+        print("reset")
         self.clean()
         self.viewer = None
 
         splib3.animation.animate.manager = None
         if not self.goalList:
             self.goalList = self.config["goalList"]
-
         # Set a new random goal from the list
         id_goal = self.np_random.choice(range(len(self.goalList)))
         self.config.update({'goal_node': id_goal})
+        
         self.goal = self.goalList[id_goal]
 
         self.timer = 0
